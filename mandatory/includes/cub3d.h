@@ -6,7 +6,7 @@
 /*   By: asalek <asalek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 04:33:19 by yelgharo          #+#    #+#             */
-/*   Updated: 2022/07/25 14:21:19 by asalek           ###   ########.fr       */
+/*   Updated: 2022/08/26 16:03:29 by asalek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 # include "../minilibx_opengl_20191021/mlx.h"
 
 # define BUFFER_SIZE 1
-# define X_AXIS 1800
-# define Y_AXIS 800
+# define X_AXIS 800
+# define Y_AXIS 500
 # define PI 3.1415926535
 # define T_W 64
 # define COS_A 193.2
 # define SIN_A 16.93
 # define T_H 64
-# define SPEED 0.16
+# define SPEED 0.06
 # define ROTATE_SPEED 0.06
 # define IMG_1 "mandatory/walls_floor/colorstone.xpm"
 # define IMG_2 "mandatory/walls_floor/eagle.xpm"
@@ -39,6 +39,7 @@
 # define IMG_5 "mandatory/walls_floor/door.xpm"
 # define IMG_6 "mandatory/walls_floor/door_open.xpm"
 # define IMG_7 "mandatory/walls_floor/pillar.xpm"
+# define IMG_8 "mandatory/walls_floor/asalek.xpm"
 
 typedef struct s_color {
 	int	r;
@@ -103,13 +104,13 @@ typedef struct s_ray
 	unsigned int	f_color; //floor color
 	unsigned int	c_color; //ciel color
 	unsigned int	color; //wall colors
-	int				texx; //wall x texture
-	int				texy; // wall y texture
+	int				texx; // coordonnée x de la texture
+	int				texy; // coordonnée y de la texture
 	int				img_n;// image number 1 to 7
-	double			steps; //player steps
-	double			wallx; //wall x position
-	double			tex_position;
-	t_img			img[7];
+	double			steps; //indique de combien augmenter les coordonnées de la texture pour chaque pixel
+	double			wallx; // valeur où le mur a été touché : coordonnée y si side == 0, coordonnée x si side == 1
+	double			tex_position;// coordonnée de départ
+	t_img			img[8];
 }	t_ray;
 
 typedef struct s_analog
@@ -120,6 +121,7 @@ typedef struct s_analog
 	int	d;
 	int	left_arrow;
 	int	right_arrow;
+	int	shift;
 }	t_analog;
 
 typedef struct s_mlx

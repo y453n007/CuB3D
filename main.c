@@ -6,7 +6,7 @@
 /*   By: asalek <asalek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 02:31:12 by yelgharo          #+#    #+#             */
-/*   Updated: 2022/07/06 19:10:41 by asalek           ###   ########.fr       */
+/*   Updated: 2022/08/04 17:33:43 by asalek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,21 @@
 
 unsigned int	img_color(t_img *t, int x, int y)
 {
-	char	*s_d;
-	int		p_d;
+	int		offset;
+	char	*img_pix;
 	uint32_t	color;
-	
-	p_d = y * t->sl + x * 4;
-	s_d = t->addr + p_d;
-	if (!s_d)
+	offset = y * t->sl + x * (t->bpp / 8);//memory offset (line_length differs from the actual window width)
+	img_pix = t->addr + offset;
+	if (!img_pix)
 	{
 		printf("Error in puting pixel's color!\n");
 		exit(0);
 	}
-	color = (((unsigned char)s_d[2] << 16) + ((unsigned char)s_d[1] << 8) + (unsigned char)s_d[0]);
+	color = (((unsigned char)img_pix[2] << 16) + ((unsigned char)img_pix[1] << 8) + (unsigned char)img_pix[0]);
 	if (color)
 		return (color);
 	else
 		return ((unsigned int)4732952);
-	
 }
 
 void	ft_init(t_map *map)
